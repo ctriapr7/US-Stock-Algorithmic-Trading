@@ -31,7 +31,6 @@ stock_data = pd.DataFrame()
 stock_data['Stock'] = stock['Adj Close']
 stock_data['SMA30'] = SMA30['Adj Close']
 stock_data['SMA100'] = SMA100['Adj Close']
-print(stock_data.tail(5))
 
 #function to create signals for buying and selling
 def signalStock(data):
@@ -74,7 +73,7 @@ plt.scatter(stock_data.index,stock_data['Buy_Signal_Price'], label = 'Buy', mark
 plt.scatter(stock_data.index,stock_data['Sell_Signal_Price'], label = 'Sell', marker = 'v', color = 'red')
 plt.legend(loc='upper left')
 plt.show()
-
+print(stock_data.index)
 
 
 

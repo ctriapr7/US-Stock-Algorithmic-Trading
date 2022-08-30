@@ -28,7 +28,7 @@ plt.legend(loc="upper left")
 plt.show()
 
 stock_data = pd.DataFrame()
-stock_data['stock'] = stock['Adj Close']
+stock_data['Stock'] = stock['Adj Close']
 stock_data['SMA30'] = SMA30['Adj Close']
 stock_data['SMA100'] = SMA100['Adj Close']
 print(stock_data.tail(5))
@@ -42,7 +42,7 @@ def signalStock(data):
     for i in range(len(data)):
         if data['SMA30'][i]> data['SMA100'][i]: #when short term SMA crosses above long term SMA, BUY
             if flag!=1:
-                signalBuyPrice.append(stock_data['stock'][i])
+                signalBuyPrice.append(stock_data['Stock'][i])
                 signalSellPrice.append(np.nan)
                 flag=1
             else:
@@ -50,7 +50,7 @@ def signalStock(data):
                 signalSellPrice.append(np.nan)
         elif data['SMA30'][i] < data['SMA100'][i]: #when short term SMA crosses above long term SMA, BUY
             if flag!=0:
-                signalSellPrice.append(stock_data['stock'][i])
+                signalSellPrice.append(stock_data['Stock'][i])
                 signalBuyPrice.append(np.nan)
                 flag=0
             else:
@@ -62,11 +62,18 @@ def signalStock(data):
     return(signalBuyPrice, signalSellPrice)
 
 signal = signalStock(stock_data)
-print(signal)
 
 stock_data['Buy_Signal_Price'] = signal[0]
 stock_data['Sell_Signal_Price']= signal[1]
 
+plt.figure(figsize=(15,5))
+plt.plot(stock_data['Stock'],label = 'FB', alpha = 0.30)
+plt.plot(stock_data['SMA30'], label = 'SMA30', alpha = 0.30)
+plt.plot(stock_data['SMA100'], label = 'SMA100', alpha = 0.30)
+plt.scatter(stock_data.index,stock_data['Buy_Signal_Price'], label = 'Buy', marker = '^', color = 'green')
+plt.scatter(stock_data.index,stock_data['Sell_Signal_Price'], label = 'Sell', marker = 'v', color = 'red')
+plt.legend(loc='upper left')
+plt.show()
 
 
 

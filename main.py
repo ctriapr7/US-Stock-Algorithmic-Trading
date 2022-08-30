@@ -32,3 +32,4 @@ def signalStock(data):
     flag = -1 #if flag is 1, a buy is recently conducted, or if flag is 0, a sell is recently conducted
 
     for i in range(len(data)):
+
